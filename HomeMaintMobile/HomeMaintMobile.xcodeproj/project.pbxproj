@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0373D31887EA33EE5205BE8 /* MaintenanceRecordListViewModel.swift */; };
-		017B45F53974246B1632BAAB /* PhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8D4640F66C8D5CCDE8A795 /* PhotoGridView.swift */; };
 		1028539039517F48732ED5CB /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */; };
 		1BE3F73DACD2AE03FDC2DB2B /* MaintenanceRecordFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */; };
 		5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */; };
 		6C1B3270229429B71225CD72 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D974EBBDA2A69E83E307D0C /* CameraService.swift */; };
+		80DEE9FBDDC1CB16856038F7 /* PhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC8AE11CC2670C2C13AB2A /* PhotoGridView.swift */; };
 		82629C73636997DB701D91A3 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C88D48641902BF2C86FF5A /* TaskFormView.swift */; };
 		830184822EAEDC3700C27976 /* MaintenanceRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301846A2EAEDC3700C27976 /* MaintenanceRecordRepository.swift */; };
 		830184832EAEDC3700C27976 /* AssetListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830184732EAEDC3700C27976 /* AssetListViewModel.swift */; };
@@ -56,6 +56,7 @@
 /* Begin PBXFileReference section */
 		3D974EBBDA2A69E83E307D0C /* CameraService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		48DC8AE11CC2670C2C13AB2A /* PhotoGridView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoGridView.swift; sourceTree = "<group>"; };
 		4CA0A469F983544252E196CC /* MaintenanceRecordListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordListView.swift; sourceTree = "<group>"; };
 		6DC924CAE2DA55946CD654D3 /* MaintenanceTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceTask.swift; sourceTree = "<group>"; };
 		74BEB5F943AF8BB3484FB20D /* TaskDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
@@ -121,6 +122,15 @@
 				6DC924CAE2DA55946CD654D3 /* MaintenanceTask.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0934896B0A2C1178BB6F27A5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				48DC8AE11CC2670C2C13AB2A /* PhotoGridView.swift */,
+			);
+			name = Shared;
+			path = Views/Shared;
 			sourceTree = "<group>";
 		};
 		544AF31FB25B507C7A877BFE /* HomeMaintMobile */ = {
@@ -267,6 +277,7 @@
 				8301847F2EAEDC3700C27976 /* Settings */,
 				830184802EAEDC3700C27976 /* Tasks */,
 				5BAC7F29C9743BCC2A208969 /* Shared */,
+				0934896B0A2C1178BB6F27A5 /* Shared */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -430,7 +441,7 @@
 				5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */,
 				0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */,
 				6C1B3270229429B71225CD72 /* CameraService.swift in Sources */,
-				017B45F53974246B1632BAAB /* PhotoGridView.swift in Sources */,
+				80DEE9FBDDC1CB16856038F7 /* PhotoGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
