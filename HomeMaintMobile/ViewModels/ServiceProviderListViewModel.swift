@@ -34,11 +34,19 @@ class ServiceProviderListViewModel: ObservableObject {
             let home = try seedService.getOrCreateHome()
             currentHomeId = home.id
 
+            // Ensure home has an ID
+            guard let homeId = home.id else {
+                errorMessage = "Home does not have a valid ID"
+                print("❌ Error: Home missing ID")
+                isLoading = false
+                return
+            }
+
             // Load providers
             if searchQuery.isEmpty {
-                providers = try providerRepo.findByHomeId(home.id!)
+                providers = try providerRepo.findByHomeId(homeId)
             } else {
-                providers = try providerRepo.search(homeId: home.id!, query: searchQuery)
+                providers = try providerRepo.search(homeId: homeId, query: searchQuery)
             }
 
             print("✅ Loaded \(providers.count) providers")

@@ -34,11 +34,19 @@ class AssetListViewModel: ObservableObject {
             let home = try seedService.getOrCreateHome()
             currentHomeId = home.id
 
+            // Ensure home has an ID
+            guard let homeId = home.id else {
+                errorMessage = "Home does not have a valid ID"
+                print("❌ Error: Home missing ID")
+                isLoading = false
+                return
+            }
+
             // Load assets
             if searchQuery.isEmpty {
-                assets = try assetRepo.findByHomeId(home.id!)
+                assets = try assetRepo.findByHomeId(homeId)
             } else {
-                assets = try assetRepo.search(homeId: home.id!, query: searchQuery)
+                assets = try assetRepo.search(homeId: homeId, query: searchQuery)
             }
 
             print("✅ Loaded \(assets.count) assets")
