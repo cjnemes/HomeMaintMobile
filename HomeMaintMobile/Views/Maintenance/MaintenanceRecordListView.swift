@@ -11,58 +11,56 @@ struct MaintenanceRecordListView: View {
     var filterProviderId: Int64? = nil
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if viewModel.isLoading && viewModel.records.isEmpty {
-                    ProgressView("Loading maintenance records...")
-                } else if viewModel.filteredRecords.isEmpty {
-                    emptyStateView
-                } else {
-                    recordList
+        ZStack {
+            if viewModel.isLoading && viewModel.records.isEmpty {
+                ProgressView("Loading maintenance records...")
+            } else if viewModel.filteredRecords.isEmpty {
+                emptyStateView
+            } else {
+                recordList
+            }
+        }
+        .navigationTitle("Maintenance History")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                filterButton
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingAddRecord = true
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
-            .navigationTitle("Maintenance History")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    filterButton
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showingAddRecord = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            .searchable(text: $viewModel.searchQuery, prompt: "Search records")
-            .refreshable {
-                await loadRecords()
-            }
-            .sheet(isPresented: $showingAddRecord) {
-                MaintenanceRecordFormView(
-                    mode: .create,
-                    preselectedAssetId: filterAssetId
-                ) {
-                    Task {
-                        await loadRecords()
-                    }
+        }
+        .searchable(text: $viewModel.searchQuery, prompt: "Search records")
+        .refreshable {
+            await loadRecords()
+        }
+        .sheet(isPresented: $showingAddRecord) {
+            MaintenanceRecordFormView(
+                mode: .create,
+                preselectedAssetId: filterAssetId
+            ) {
+                Task {
+                    await loadRecords()
                 }
             }
-            .sheet(isPresented: $showingFilterSheet) {
-                filterView
+        }
+        .sheet(isPresented: $showingFilterSheet) {
+            filterView
+        }
+        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("OK") {
+                viewModel.errorMessage = nil
             }
-            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
-                    viewModel.errorMessage = nil
-                }
-            } message: {
-                if let error = viewModel.errorMessage {
-                    Text(error)
-                }
+        } message: {
+            if let error = viewModel.errorMessage {
+                Text(error)
             }
-            .task {
-                await loadRecords()
-            }
+        }
+        .task {
+            await loadRecords()
         }
     }
 
