@@ -33,9 +33,18 @@ struct AssetFormView: View {
     @State private var errorMessage: String?
     @State private var isSaving = false
 
+    // Photo capture
+    @State private var showingPhotoOptions = false
+    @State private var showingCamera = false
+    @State private var showingPhotoLibrary = false
+    @State private var capturedPhotos: [UIImage] = []
+    @State private var existingAttachments: [Attachment] = []
+
     private let assetRepo = AssetRepository()
     private let categoryRepo = CategoryRepository()
     private let locationRepo = LocationRepository()
+    private let attachmentRepo = AttachmentRepository()
+    private let fileStorage = FileStorageService.shared
     private let seedService = SeedDataService.shared
 
     var body: some View {
@@ -88,6 +97,64 @@ struct AssetFormView: View {
                     TextEditor(text: $notes)
                         .frame(minHeight: 100)
                 }
+
+                Section("Photos") {
+                    // Existing attachments (edit mode)
+                    if !existingAttachments.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(existingAttachments) { attachment in
+                                    AsyncImage(url: URL(string: attachment.relativePath)) { phase in
+                                        if let image = phase.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } else {
+                                            ProgressView()
+                                        }
+                                    }
+                                    .frame(width: 80, height: 80)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
+                            }
+                        }
+                    }
+
+                    // Newly captured photos
+                    if !capturedPhotos.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(Array(capturedPhotos.enumerated()), id: \.offset) { index, photo in
+                                    ZStack(alignment: .topTrailing) {
+                                        Image(uiImage: photo)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 80, height: 80)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                                        Button {
+                                            capturedPhotos.remove(at: index)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(.red)
+                                                .background(Circle().fill(Color.white))
+                                        }
+                                        .offset(x: 8, y: -8)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Button {
+                        showingPhotoOptions = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "camera.fill")
+                            Text("Add Photo")
+                        }
+                    }
+                }
             }
             .navigationTitle(mode.title)
             .navigationBarTitleDisplayMode(.inline)
@@ -118,6 +185,27 @@ struct AssetFormView: View {
                 if let error = errorMessage {
                     Text(error)
                 }
+            }
+            .confirmationDialog("Choose Photo Source", isPresented: $showingPhotoOptions) {
+                Button("Take Photo") {
+                    showingCamera = true
+                }
+                Button("Choose from Library") {
+                    showingPhotoLibrary = true
+                }
+                Button("Cancel", role: .cancel) {}
+            }
+            .sheet(isPresented: $showingCamera) {
+                ImagePicker(selectedImage: Binding(
+                    get: { nil },
+                    set: { if let image = $0 { capturedPhotos.append(image) } }
+                ), sourceType: .camera)
+            }
+            .sheet(isPresented: $showingPhotoLibrary) {
+                ImagePicker(selectedImage: Binding(
+                    get: { nil },
+                    set: { if let image = $0 { capturedPhotos.append(image) } }
+                ), sourceType: .photoLibrary)
             }
         }
     }
@@ -184,6 +272,12 @@ struct AssetFormView: View {
                 installationDate = asset.installationDate
                 warrantyExpiration = asset.warrantyExpiration
                 notes = asset.notes ?? ""
+
+                // Load existing attachments
+                existingAttachments = try await Task {
+                    try attachmentRepo.findByEntityId(asset.id!, entityType: "asset")
+                }.value
+                print("📷 Loaded \(existingAttachments.count) existing photos")
             }
         } catch {
             errorMessage = "Failed to load data: \(error.localizedDescription)"
@@ -197,9 +291,10 @@ struct AssetFormView: View {
         do {
             let home = try seedService.getOrCreateHome()
 
+            let savedAsset: Asset
             switch mode {
             case .create:
-                _ = try assetRepo.create(
+                savedAsset = try assetRepo.create(
                     homeId: home.id!,
                     name: name,
                     categoryId: selectedCategory?.id,
@@ -214,7 +309,7 @@ struct AssetFormView: View {
                 )
 
             case .edit(let asset):
-                _ = try assetRepo.update(
+                savedAsset = try assetRepo.update(
                     asset.id!,
                     name: name,
                     categoryId: selectedCategory?.id,
@@ -229,12 +324,38 @@ struct AssetFormView: View {
                 )
             }
 
+            // Save captured photos
+            for photo in capturedPhotos {
+                try await savePhoto(photo, for: savedAsset.id!)
+            }
+
             onSave()
             dismiss()
         } catch {
             errorMessage = "Failed to save asset: \(error.localizedDescription)"
             isSaving = false
         }
+    }
+
+    private func savePhoto(_ image: UIImage, for assetId: Int64) async throws {
+        // Store image file
+        let result = try await Task {
+            try fileStorage.storeImage(image, filename: "asset_\(assetId)_\(UUID().uuidString).jpg")
+        }.value
+
+        // Create attachment record
+        _ = try await Task {
+            try attachmentRepo.create(
+                entityId: assetId,
+                entityType: "asset",
+                relativePath: result.relativePath,
+                filename: "photo.jpg",
+                mimeType: "image/jpeg",
+                fileSize: result.fileSize
+            )
+        }.value
+
+        print("📷 Saved photo: \(result.relativePath)")
     }
 
     private func formatDate(_ date: Date) -> String {

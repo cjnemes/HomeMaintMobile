@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0373D31887EA33EE5205BE8 /* MaintenanceRecordListViewModel.swift */; };
+		017B45F53974246B1632BAAB /* PhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8D4640F66C8D5CCDE8A795 /* PhotoGridView.swift */; };
 		1028539039517F48732ED5CB /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */; };
 		1BE3F73DACD2AE03FDC2DB2B /* MaintenanceRecordFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */; };
 		5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */; };
@@ -97,6 +98,7 @@
 		A4C88D48641902BF2C86FF5A /* TaskFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		B0373D31887EA33EE5205BE8 /* MaintenanceRecordListViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordListViewModel.swift; sourceTree = "<group>"; };
 		C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordDetailView.swift; sourceTree = "<group>"; };
+		CD8D4640F66C8D5CCDE8A795 /* PhotoGridView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoGridView.swift; sourceTree = "<group>"; };
 		E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordFormView.swift; sourceTree = "<group>"; };
 		F04C7FA001173735FB0BAB2B /* TaskListViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,15 @@
 				E0B452986721C0449130C9C4 /* Repositories */,
 			);
 			name = HomeMaintMobile;
+			sourceTree = "<group>";
+		};
+		5BAC7F29C9743BCC2A208969 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CD8D4640F66C8D5CCDE8A795 /* PhotoGridView.swift */,
+			);
+			name = Shared;
+			path = Views/Shared;
 			sourceTree = "<group>";
 		};
 		830184632EAEDC3700C27976 /* Models */ = {
@@ -255,6 +266,7 @@
 				8301847E2EAEDC3700C27976 /* ServiceProviders */,
 				8301847F2EAEDC3700C27976 /* Settings */,
 				830184802EAEDC3700C27976 /* Tasks */,
+				5BAC7F29C9743BCC2A208969 /* Shared */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -418,6 +430,7 @@
 				5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */,
 				0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */,
 				6C1B3270229429B71225CD72 /* CameraService.swift in Sources */,
+				017B45F53974246B1632BAAB /* PhotoGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

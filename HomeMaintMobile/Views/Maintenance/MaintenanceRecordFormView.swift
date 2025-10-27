@@ -27,9 +27,18 @@ struct MaintenanceRecordFormView: View {
     @State private var errorMessage: String?
     @State private var isSaving = false
 
+    // Photo capture
+    @State private var showingPhotoOptions = false
+    @State private var showingCamera = false
+    @State private var showingPhotoLibrary = false
+    @State private var capturedPhotos: [UIImage] = []
+    @State private var existingAttachments: [Attachment] = []
+
     private let recordRepo = MaintenanceRecordRepository()
     private let assetRepo = AssetRepository()
     private let providerRepo = ServiceProviderRepository()
+    private let attachmentRepo = AttachmentRepository()
+    private let fileStorage = FileStorageService.shared
     private let seedService = SeedDataService.shared
 
     init(mode: Mode, preselectedAssetId: Int64? = nil, onSave: @escaping () -> Void) {
@@ -101,6 +110,64 @@ struct MaintenanceRecordFormView: View {
                             }
                         }
                 }
+
+                Section("Photos") {
+                    // Existing attachments (edit mode)
+                    if !existingAttachments.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(existingAttachments) { attachment in
+                                    AsyncImage(url: URL(string: attachment.relativePath)) { phase in
+                                        if let image = phase.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } else {
+                                            ProgressView()
+                                        }
+                                    }
+                                    .frame(width: 80, height: 80)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
+                            }
+                        }
+                    }
+
+                    // Newly captured photos
+                    if !capturedPhotos.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(Array(capturedPhotos.enumerated()), id: \.offset) { index, photo in
+                                    ZStack(alignment: .topTrailing) {
+                                        Image(uiImage: photo)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 80, height: 80)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                                        Button {
+                                            capturedPhotos.remove(at: index)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(.red)
+                                                .background(Circle().fill(Color.white))
+                                        }
+                                        .offset(x: 8, y: -8)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Button {
+                        showingPhotoOptions = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "camera.fill")
+                            Text("Add Photo")
+                        }
+                    }
+                }
             }
             .navigationTitle(mode.title)
             .navigationBarTitleDisplayMode(.inline)
@@ -131,6 +198,27 @@ struct MaintenanceRecordFormView: View {
                 if let error = errorMessage {
                     Text(error)
                 }
+            }
+            .confirmationDialog("Choose Photo Source", isPresented: $showingPhotoOptions) {
+                Button("Take Photo") {
+                    showingCamera = true
+                }
+                Button("Choose from Library") {
+                    showingPhotoLibrary = true
+                }
+                Button("Cancel", role: .cancel) {}
+            }
+            .sheet(isPresented: $showingCamera) {
+                ImagePicker(selectedImage: Binding(
+                    get: { nil },
+                    set: { if let image = $0 { capturedPhotos.append(image) } }
+                ), sourceType: .camera)
+            }
+            .sheet(isPresented: $showingPhotoLibrary) {
+                ImagePicker(selectedImage: Binding(
+                    get: { nil },
+                    set: { if let image = $0 { capturedPhotos.append(image) } }
+                ), sourceType: .photoLibrary)
             }
         }
     }
@@ -175,6 +263,12 @@ struct MaintenanceRecordFormView: View {
                 if let cost = record.cost {
                     costString = "\(cost)"
                 }
+
+                // Load existing attachments
+                existingAttachments = try await Task {
+                    try attachmentRepo.findByEntityId(record.id!, entityType: "maintenance_record")
+                }.value
+                print("📷 Loaded \(existingAttachments.count) existing photos")
             }
 
         } catch {
@@ -193,9 +287,10 @@ struct MaintenanceRecordFormView: View {
         do {
             let cost = parseCost(from: costString)
 
+            let savedRecord: MaintenanceRecord
             switch mode {
             case .create:
-                _ = try await Task {
+                savedRecord = try await Task {
                     try recordRepo.create(
                         assetId: selectedAsset!.id!,
                         serviceProviderId: selectedProvider?.id,
@@ -216,9 +311,14 @@ struct MaintenanceRecordFormView: View {
                 record.assetId = selectedAsset!.id!
                 record.serviceProviderId = selectedProvider?.id
 
-                _ = try await Task {
+                savedRecord = try await Task {
                     try recordRepo.update(record)
                 }.value
+            }
+
+            // Save captured photos
+            for photo in capturedPhotos {
+                try await savePhoto(photo, for: savedRecord.id!)
             }
 
             onSave()
@@ -229,6 +329,27 @@ struct MaintenanceRecordFormView: View {
         }
 
         isSaving = false
+    }
+
+    private func savePhoto(_ image: UIImage, for recordId: Int64) async throws {
+        // Store image file
+        let result = try await Task {
+            try fileStorage.storeImage(image, filename: "maintenance_\(recordId)_\(UUID().uuidString).jpg")
+        }.value
+
+        // Create attachment record
+        _ = try await Task {
+            try attachmentRepo.create(
+                entityId: recordId,
+                entityType: "maintenance_record",
+                relativePath: result.relativePath,
+                filename: "photo.jpg",
+                mimeType: "image/jpeg",
+                fileSize: result.fileSize
+            )
+        }.value
+
+        print("📷 Saved photo: \(result.relativePath)")
     }
 
     // MARK: - Helper Methods
