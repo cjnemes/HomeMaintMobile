@@ -57,8 +57,13 @@ class FileStorageService {
 
         // Create year/month directory structure
         let dateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
-        let year = String(dateComponents.year!)
-        let month = String(format: "%02d", dateComponents.month!)
+
+        guard let yearValue = dateComponents.year, let monthValue = dateComponents.month else {
+            throw FileStorageError.invalidDateComponents
+        }
+
+        let year = String(yearValue)
+        let month = String(format: "%02d", monthValue)
 
         let directoryPath = baseDirectory
             .appendingPathComponent(year, isDirectory: true)
@@ -207,6 +212,7 @@ enum FileStorageError: Error {
     case fileNotFound(String)
     case imageCompressionFailed
     case imageDecodingFailed
+    case invalidDateComponents
 
     var localizedDescription: String {
         switch self {
@@ -218,6 +224,8 @@ enum FileStorageError: Error {
             return "Failed to compress image"
         case .imageDecodingFailed:
             return "Failed to decode image"
+        case .invalidDateComponents:
+            return "Failed to get valid date components"
         }
     }
 }
