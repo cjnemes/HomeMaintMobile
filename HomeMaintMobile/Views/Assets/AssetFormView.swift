@@ -275,7 +275,7 @@ struct AssetFormView: View {
 
                 // Load existing attachments
                 existingAttachments = try await Task {
-                    try attachmentRepo.findByEntityId(asset.id!, entityType: "asset")
+                    try attachmentRepo.findByAssetId(asset.id!)
                 }.value
                 print("📷 Loaded \(existingAttachments.count) existing photos")
             }
@@ -339,19 +339,20 @@ struct AssetFormView: View {
 
     private func savePhoto(_ image: UIImage, for assetId: Int64) async throws {
         // Store image file
+        let filename = "asset_\(assetId)_\(UUID().uuidString).jpg"
         let result = try await Task {
-            try fileStorage.storeImage(image, filename: "asset_\(assetId)_\(UUID().uuidString).jpg")
+            try fileStorage.storeImage(image, filename: filename)
         }.value
 
         // Create attachment record
         _ = try await Task {
             try attachmentRepo.create(
-                entityId: assetId,
-                entityType: "asset",
+                assetId: assetId,
+                type: "photo",
+                filename: filename,
                 relativePath: result.relativePath,
-                filename: "photo.jpg",
-                mimeType: "image/jpeg",
-                fileSize: result.fileSize
+                fileSize: result.fileSize,
+                mimeType: "image/jpeg"
             )
         }.value
 

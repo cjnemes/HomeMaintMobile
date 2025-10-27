@@ -252,10 +252,10 @@ struct MaintenanceRecordFormView: View {
 
             // Load existing record data if editing
             if case .edit(let record) = mode {
-                maintenanceType = record.maintenanceType
+                maintenanceType = record.type
                 description = record.description ?? ""
                 notes = record.notes ?? ""
-                performedAt = record.performedAt
+                performedAt = record.date
                 selectedAsset = assets.first { $0.id == record.assetId }
                 if let providerId = record.serviceProviderId {
                     selectedProvider = providers.first { $0.id == providerId }
@@ -266,7 +266,7 @@ struct MaintenanceRecordFormView: View {
 
                 // Load existing attachments
                 existingAttachments = try await Task {
-                    try attachmentRepo.findByEntityId(record.id!, entityType: "maintenance_record")
+                    try attachmentRepo.findByMaintenanceRecordId(record.id!)
                 }.value
                 print("📷 Loaded \(existingAttachments.count) existing photos")
             }
@@ -285,7 +285,7 @@ struct MaintenanceRecordFormView: View {
         errorMessage = nil
 
         do {
-            let cost = parseCost(from: costString)
+            let costValue = costString.isEmpty ? nil : costString
 
             let savedRecord: MaintenanceRecord
             switch mode {
@@ -293,26 +293,26 @@ struct MaintenanceRecordFormView: View {
                 savedRecord = try await Task {
                     try recordRepo.create(
                         assetId: selectedAsset!.id!,
+                        date: performedAt,
+                        type: maintenanceType,
                         serviceProviderId: selectedProvider?.id,
-                        maintenanceType: maintenanceType,
                         description: description.isEmpty ? nil : description,
-                        cost: cost,
-                        performedAt: performedAt,
+                        cost: costValue,
                         notes: notes.isEmpty ? nil : notes
                     )
                 }.value
 
-            case .edit(var record):
-                record.maintenanceType = maintenanceType
-                record.description = description.isEmpty ? nil : description
-                record.notes = notes.isEmpty ? nil : notes
-                record.cost = cost
-                record.performedAt = performedAt
-                record.assetId = selectedAsset!.id!
-                record.serviceProviderId = selectedProvider?.id
-
+            case .edit(let record):
                 savedRecord = try await Task {
-                    try recordRepo.update(record)
+                    try recordRepo.update(
+                        record.id!,
+                        date: performedAt,
+                        type: maintenanceType,
+                        serviceProviderId: selectedProvider?.id,
+                        description: description.isEmpty ? nil : description,
+                        cost: costValue,
+                        notes: notes.isEmpty ? nil : notes
+                    )
                 }.value
             }
 
@@ -333,19 +333,20 @@ struct MaintenanceRecordFormView: View {
 
     private func savePhoto(_ image: UIImage, for recordId: Int64) async throws {
         // Store image file
+        let filename = "maintenance_\(recordId)_\(UUID().uuidString).jpg"
         let result = try await Task {
-            try fileStorage.storeImage(image, filename: "maintenance_\(recordId)_\(UUID().uuidString).jpg")
+            try fileStorage.storeImage(image, filename: filename)
         }.value
 
         // Create attachment record
         _ = try await Task {
             try attachmentRepo.create(
-                entityId: recordId,
-                entityType: "maintenance_record",
+                maintenanceRecordId: recordId,
+                type: "photo",
+                filename: filename,
                 relativePath: result.relativePath,
-                filename: "photo.jpg",
-                mimeType: "image/jpeg",
-                fileSize: result.fileSize
+                fileSize: result.fileSize,
+                mimeType: "image/jpeg"
             )
         }.value
 

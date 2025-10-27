@@ -298,12 +298,12 @@ struct MaintenanceRecordRowView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Header: Type and Date
             HStack {
-                Text(record.maintenanceType)
+                Text(record.type)
                     .font(.headline)
 
                 Spacer()
 
-                Text(formatDate(record.performedAt))
+                Text(formatDate(record.date))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -318,11 +318,11 @@ struct MaintenanceRecordRowView: View {
 
             // Footer: Cost and Provider indicator
             HStack {
-                if let cost = record.cost {
+                if let formattedCost = record.formattedCost {
                     HStack(spacing: 4) {
                         Image(systemName: "dollarsign.circle.fill")
                             .font(.caption2)
-                        Text(formatCurrency(cost))
+                        Text(formattedCost)
                             .font(.caption)
                             .fontWeight(.semibold)
                     }

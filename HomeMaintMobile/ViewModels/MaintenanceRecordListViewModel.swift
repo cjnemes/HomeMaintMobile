@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 /// ViewModel for displaying and filtering maintenance records
 @MainActor
@@ -24,7 +25,7 @@ class MaintenanceRecordListViewModel: ObservableObject {
 
     var totalCost: Decimal {
         records.reduce(Decimal(0)) { sum, record in
-            sum + (record.cost ?? Decimal(0))
+            sum + (record.costDecimal ?? Decimal(0))
         }
     }
 
@@ -43,7 +44,7 @@ class MaintenanceRecordListViewModel: ObservableObject {
         // Apply search filter
         if !searchQuery.isEmpty {
             filtered = filtered.filter { record in
-                record.maintenanceType.localizedCaseInsensitiveContains(searchQuery) ||
+                record.type.localizedCaseInsensitiveContains(searchQuery) ||
                 (record.description?.localizedCaseInsensitiveContains(searchQuery) ?? false) ||
                 (record.notes?.localizedCaseInsensitiveContains(searchQuery) ?? false)
             }
@@ -139,7 +140,7 @@ class MaintenanceRecordListViewModel: ObservableObject {
     func getTotalCost(forAssetId assetId: Int64) async -> Decimal {
         do {
             return try await Task {
-                try recordRepo.getTotalCost(forAssetId: assetId)
+                try recordRepo.getTotalCost(assetId: assetId)
             }.value
         } catch {
             return Decimal(0)
@@ -156,7 +157,7 @@ class MaintenanceRecordListViewModel: ObservableObject {
             } else if let providerId = filterProviderId {
                 return try recordRepo.findByServiceProviderId(providerId)
             } else if let start = startDate, let end = endDate {
-                return try recordRepo.findByDateRange(startDate: start, endDate: end)
+                return try recordRepo.findByDateRange(from: start, to: end)
             } else {
                 return try recordRepo.findAll()
             }

@@ -67,22 +67,22 @@ struct MaintenanceRecordDetailView: View {
 
     private var headerCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(record.maintenanceType)
+            Text(record.type)
                 .font(.title2)
                 .fontWeight(.bold)
 
             HStack {
                 Image(systemName: "calendar")
                     .foregroundColor(.secondary)
-                Text(formatDate(record.performedAt))
+                Text(formatDate(record.date))
                     .foregroundColor(.secondary)
 
                 Spacer()
 
-                if let cost = record.cost {
+                if let formattedCost = record.formattedCost {
                     HStack(spacing: 4) {
                         Image(systemName: "dollarsign.circle.fill")
-                        Text(formatCurrency(cost))
+                        Text(formattedCost)
                             .fontWeight(.semibold)
                     }
                     .foregroundColor(.green)
@@ -112,7 +112,7 @@ struct MaintenanceRecordDetailView: View {
             DetailRow(
                 icon: "clock",
                 label: "Performed On",
-                value: formatDateLong(record.performedAt)
+                value: formatDateLong(record.date)
             )
 
             DetailRow(
@@ -236,14 +236,14 @@ struct MaintenanceRecordDetailView: View {
             Text("Cost Details")
                 .font(.headline)
 
-            if let cost = record.cost {
+            if let formattedCost = record.formattedCost {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Service Cost")
                             .font(.caption)
                             .foregroundColor(.secondary)
 
-                        Text(formatCurrency(cost))
+                        Text(formattedCost)
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(.green)
@@ -315,56 +315,5 @@ struct MaintenanceRecordDetailView: View {
         formatter.numberStyle = .currency
         formatter.locale = Locale.current
         return formatter.string(from: value as NSDecimalNumber) ?? "$0.00"
-    }
-}
-
-// MARK: - Supporting Views
-
-struct DetailRow: View {
-    let icon: String
-    let label: String
-    let value: String
-    var valueColor: Color = .primary
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: icon)
-                .foregroundColor(.secondary)
-                .frame(width: 20)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(label)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-
-                Text(value)
-                    .font(.body)
-                    .foregroundColor(valueColor)
-            }
-        }
-    }
-}
-
-struct StatusBadge: View {
-    let status: MaintenanceTask.TaskStatus
-
-    var body: some View {
-        Text(status.displayText)
-            .font(.caption2)
-            .fontWeight(.semibold)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(backgroundColor)
-            .foregroundColor(.white)
-            .cornerRadius(6)
-    }
-
-    private var backgroundColor: Color {
-        switch status {
-        case .pending: return .orange
-        case .inProgress: return .blue
-        case .completed: return .green
-        case .cancelled: return .gray
-        }
     }
 }

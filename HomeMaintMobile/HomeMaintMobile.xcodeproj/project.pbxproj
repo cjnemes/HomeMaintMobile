@@ -11,6 +11,7 @@
 		1028539039517F48732ED5CB /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */; };
 		1BE3F73DACD2AE03FDC2DB2B /* MaintenanceRecordFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */; };
 		41BBF99C1E828B58974337E1 /* PhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375CB011DF0EBAD27F193BE2 /* PhotoGridView.swift */; };
+		5545C7F56D1B40216FE7A68C /* CommonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BB95978145001FF2601D2D /* CommonComponents.swift */; };
 		5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */; };
 		6C1B3270229429B71225CD72 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D974EBBDA2A69E83E307D0C /* CameraService.swift */; };
 		82629C73636997DB701D91A3 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C88D48641902BF2C86FF5A /* TaskFormView.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19BB95978145001FF2601D2D /* CommonComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommonComponents.swift; sourceTree = "<group>"; };
 		375CB011DF0EBAD27F193BE2 /* PhotoGridView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoGridView.swift; sourceTree = "<group>"; };
 		3D974EBBDA2A69E83E307D0C /* CameraService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				375CB011DF0EBAD27F193BE2 /* PhotoGridView.swift */,
+				19BB95978145001FF2601D2D /* CommonComponents.swift */,
 			);
 			name = Shared;
 			path = Shared;
@@ -442,6 +445,7 @@
 				0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */,
 				6C1B3270229429B71225CD72 /* CameraService.swift in Sources */,
 				41BBF99C1E828B58974337E1 /* PhotoGridView.swift in Sources */,
+				5545C7F56D1B40216FE7A68C /* CommonComponents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
