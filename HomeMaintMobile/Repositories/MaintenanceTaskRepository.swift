@@ -23,6 +23,13 @@ class MaintenanceTaskRepository: BaseRepository<MaintenanceTask> {
                 status: status
             )
             try task.insert(db)
+
+            // Ensure ID is set (should be set by didInsert, but verify)
+            if task.id == nil {
+                // Fallback: use the last inserted row ID
+                task.id = db.lastInsertedRowID
+            }
+
             return task
         }
     }

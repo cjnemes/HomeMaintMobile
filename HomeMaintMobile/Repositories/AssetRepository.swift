@@ -33,6 +33,13 @@ class AssetRepository: BaseRepository<Asset> {
                 notes: notes
             )
             try asset.insert(db)
+
+            // Ensure ID is set (should be set by didInsert, but verify)
+            if asset.id == nil {
+                // Fallback: use the last inserted row ID
+                asset.id = db.lastInsertedRowID
+            }
+
             return asset
         }
     }

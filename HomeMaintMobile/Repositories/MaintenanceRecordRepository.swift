@@ -25,6 +25,13 @@ class MaintenanceRecordRepository: BaseRepository<MaintenanceRecord> {
                 notes: notes
             )
             try record.insert(db)
+
+            // Ensure ID is set (should be set by didInsert, but verify)
+            if record.id == nil {
+                // Fallback: use the last inserted row ID
+                record.id = db.lastInsertedRowID
+            }
+
             return record
         }
     }
