@@ -6,7 +6,10 @@ import GRDB
 class BaseRepository<Model: Codable & FetchableRecord & PersistableRecord & MutablePersistableRecord> {
 
     var dbQueue: DatabaseQueue {
-        return DatabaseService.shared.dbQueue
+        guard let queue = DatabaseService.shared.dbQueue else {
+            fatalError("❌ DatabaseService not initialized! Call DatabaseService.shared.initialize() before creating repositories.")
+        }
+        return queue
     }
 
     required init() {
