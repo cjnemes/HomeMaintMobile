@@ -1,0 +1,44 @@
+# Pre-commit hooks for HomeMaint Mobile (iOS/Swift)
+# Install: brew install pre-commit, then run: pre-commit install
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=10000']  # 10MB limit for photos/assets
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      - id: swiftlint
+        name: SwiftLint
+        entry: swiftlint lint --strict
+        language: system
+        types: [swift]
+        pass_filenames: false
+        always_run: true
+
+      - id: swift-format
+        name: Swift Format
+        entry: swiftformat --lint .
+        language: system
+        types: [swift]
+        pass_filenames: false
+
+      - id: swift-tests
+        name: Run Swift Tests
+        entry: bash -c 'xcodebuild test -scheme HomeMaintMobile -destination "platform=iOS Simulator,name=iPhone 15" -quiet || exit 1'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: coverage-check
+        name: Check Coverage Threshold
+        entry: bash scripts/check-coverage.sh
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Test and Coverage
+    runs-on: macos-14  # Xcode 15+ available
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+
+    - name: Show Xcode version
+      run: xcodebuild -version
+
+    - name: Install dependencies (SPM)
+      run: xcodebuild -resolvePackageDependencies -scheme HomeMaintMobile
+
+    - name: Build project
+      run: |
+        xcodebuild clean build \
+          -scheme HomeMaintMobile \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO
+
+    - name: Run tests with coverage
+      run: |
+        xcodebuild test \
+          -scheme HomeMaintMobile \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+          -enableCodeCoverage YES \
+          -resultBundlePath TestResults.xcresult \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO
+
+    - name: Extract coverage report
+      run: |
+        xcrun xccov view --report TestResults.xcresult > coverage.txt
+        cat coverage.txt
+
+    - name: Check coverage threshold
+      run: |
+        # Extract overall coverage percentage from xccov output
+        COVERAGE=$(xcrun xccov view --report --json TestResults.xcresult | \
+          python3 -c "import sys, json; print(json.load(sys.stdin)['lineCoverage'])")
+
+        # Convert to percentage (0.85 -> 85)
+        COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc)
+
+        echo "Code coverage: $COVERAGE_PERCENT%"
+
+        # Check if coverage meets 85% threshold
+        if (( $(echo "$COVERAGE < 0.85" | bc -l) )); then
+          echo "❌ Coverage ($COVERAGE_PERCENT%) is below 85% threshold"
+          exit 1
+        else
+          echo "✅ Coverage ($COVERAGE_PERCENT%) meets 85% threshold"
+        fi
+
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-report
+        path: |
+          TestResults.xcresult
+          coverage.txt
+
+  lint:
+    name: SwiftLint
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install SwiftLint
+      run: brew install swiftlint
+
+    - name: Run SwiftLint
+      run: swiftlint lint --strict
+
+  build-release:
+    name: Build Release
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+
+    - name: Build release configuration
+      run: |
+        xcodebuild clean build \
+          -scheme HomeMaintMobile \
+          -configuration Release \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO
