@@ -4,6 +4,8 @@ struct AssetDetailView: View {
 
     @StateObject private var viewModel: AssetDetailViewModel
     @State private var showingEditAsset = false
+    @State private var showingAddMaintenance = false
+    @State private var showingAddTask = false
 
     init(asset: Asset) {
         _viewModel = StateObject(wrappedValue: AssetDetailViewModel(asset: asset))
@@ -54,6 +56,26 @@ struct AssetDetailView: View {
         }
         .sheet(isPresented: $showingEditAsset) {
             AssetFormView(mode: .edit(viewModel.asset)) {
+                Task {
+                    await viewModel.loadRelatedData()
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddMaintenance) {
+            MaintenanceRecordFormView(
+                mode: .create,
+                preselectedAssetId: viewModel.asset.id
+            ) {
+                Task {
+                    await viewModel.loadRelatedData()
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddTask) {
+            TaskFormView(
+                mode: .create,
+                preselectedAssetId: viewModel.asset.id
+            ) {
                 Task {
                     await viewModel.loadRelatedData()
                 }
@@ -185,7 +207,7 @@ struct AssetDetailView: View {
     private var quickActionsSection: some View {
         VStack(spacing: 12) {
             Button {
-                // Navigate to add maintenance
+                showingAddMaintenance = true
             } label: {
                 Label("Log Maintenance", systemImage: "wrench.and.screwdriver.fill")
                     .frame(maxWidth: .infinity)
@@ -196,7 +218,7 @@ struct AssetDetailView: View {
             }
 
             Button {
-                // Navigate to add task
+                showingAddTask = true
             } label: {
                 Label("Add Task", systemImage: "checklist")
                     .frame(maxWidth: .infinity)

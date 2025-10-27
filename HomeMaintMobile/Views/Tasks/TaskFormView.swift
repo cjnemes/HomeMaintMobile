@@ -8,9 +8,16 @@ struct TaskFormView: View {
     }
 
     let mode: Mode
+    let preselectedAssetId: Int64?
     let onSave: () -> Void
 
     @Environment(\.dismiss) private var dismiss
+
+    init(mode: Mode, preselectedAssetId: Int64? = nil, onSave: @escaping () -> Void) {
+        self.mode = mode
+        self.preselectedAssetId = preselectedAssetId
+        self.onSave = onSave
+    }
 
     @State private var title = ""
     @State private var description = ""
@@ -159,6 +166,11 @@ struct TaskFormView: View {
             let home = try seedService.getOrCreateHome()
             assets = try assetRepo.findByHomeId(home.id!)
             print("📍 Loaded \(assets.count) assets for task form")
+
+            // Preselect asset if provided
+            if let preselectedId = preselectedAssetId {
+                selectedAsset = assets.first { $0.id == preselectedId }
+            }
 
             // Load existing task data for edit mode
             if case .edit(let task) = mode {
