@@ -95,7 +95,7 @@ struct ServiceProviderListView: View {
                 }
 
                 if let specialty = provider.specialty {
-                    if provider.name != nil && !provider.name!.isEmpty {
+                    if let name = provider.name, !name.isEmpty {
                         Text("•")
                             .foregroundColor(.secondary)
                     }
