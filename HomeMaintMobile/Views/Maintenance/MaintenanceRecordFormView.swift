@@ -237,12 +237,17 @@ struct MaintenanceRecordFormView: View {
                 try seedService.getOrCreateHome()
             }.value
 
+            guard let homeId = home.id else {
+                errorMessage = "Invalid home configuration"
+                return
+            }
+
             assets = try await Task {
-                try assetRepo.findByHomeId(home.id!)
+                try assetRepo.findByHomeId(homeId)
             }.value
 
             providers = try await Task {
-                try providerRepo.findByHomeId(home.id!)
+                try providerRepo.findByHomeId(homeId)
             }.value
 
             // Preselect asset if provided
@@ -265,10 +270,12 @@ struct MaintenanceRecordFormView: View {
                 }
 
                 // Load existing attachments
-                existingAttachments = try await Task {
-                    try attachmentRepo.findByMaintenanceRecordId(record.id!)
-                }.value
-                print("📷 Loaded \(existingAttachments.count) existing photos")
+                if let recordId = record.id {
+                    existingAttachments = try await Task {
+                        try attachmentRepo.findByMaintenanceRecordId(recordId)
+                    }.value
+                    print("📷 Loaded \(existingAttachments.count) existing photos")
+                }
             }
 
         } catch {
@@ -285,6 +292,13 @@ struct MaintenanceRecordFormView: View {
         errorMessage = nil
 
         do {
+            // Validate asset has an ID
+            guard let asset = selectedAsset, let assetId = asset.id else {
+                errorMessage = "Invalid asset selection"
+                isSaving = false
+                return
+            }
+
             let costValue = costString.isEmpty ? nil : costString
 
             let savedRecord: MaintenanceRecord
@@ -292,7 +306,7 @@ struct MaintenanceRecordFormView: View {
             case .create:
                 savedRecord = try await Task {
                     try recordRepo.create(
-                        assetId: selectedAsset!.id!,
+                        assetId: assetId,
                         date: performedAt,
                         type: maintenanceType,
                         serviceProviderId: selectedProvider?.id,
@@ -303,9 +317,14 @@ struct MaintenanceRecordFormView: View {
                 }.value
 
             case .edit(let record):
+                guard let recordId = record.id else {
+                    errorMessage = "Invalid record ID"
+                    isSaving = false
+                    return
+                }
                 savedRecord = try await Task {
                     try recordRepo.update(
-                        record.id!,
+                        recordId,
                         date: performedAt,
                         type: maintenanceType,
                         serviceProviderId: selectedProvider?.id,
@@ -317,8 +336,14 @@ struct MaintenanceRecordFormView: View {
             }
 
             // Save captured photos
+            guard let recordId = savedRecord.id else {
+                errorMessage = "Failed to get record ID after save"
+                isSaving = false
+                return
+            }
+
             for photo in capturedPhotos {
-                try await savePhoto(photo, for: savedRecord.id!)
+                try await savePhoto(photo, for: recordId)
             }
 
             onSave()

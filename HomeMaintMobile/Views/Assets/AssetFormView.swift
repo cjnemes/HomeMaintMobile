@@ -252,12 +252,18 @@ struct AssetFormView: View {
     private func loadData() async {
         do {
             let home = try seedService.getOrCreateHome()
-            print("📍 Home ID: \(home.id ?? -1)")
 
-            categories = try categoryRepo.findByHomeId(home.id!)
+            guard let homeId = home.id else {
+                errorMessage = "Invalid home configuration"
+                print("❌ Home has no ID")
+                return
+            }
+            print("📍 Home ID: \(homeId)")
+
+            categories = try categoryRepo.findByHomeId(homeId)
             print("📍 Loaded \(categories.count) categories")
 
-            locations = try locationRepo.findByHomeId(home.id!)
+            locations = try locationRepo.findByHomeId(homeId)
             print("📍 Loaded \(locations.count) locations")
 
             // Load existing asset data for edit mode
@@ -274,10 +280,12 @@ struct AssetFormView: View {
                 notes = asset.notes ?? ""
 
                 // Load existing attachments
-                existingAttachments = try await Task {
-                    try attachmentRepo.findByAssetId(asset.id!)
-                }.value
-                print("📷 Loaded \(existingAttachments.count) existing photos")
+                if let assetId = asset.id {
+                    existingAttachments = try await Task {
+                        try attachmentRepo.findByAssetId(assetId)
+                    }.value
+                    print("📷 Loaded \(existingAttachments.count) existing photos")
+                }
             }
         } catch {
             errorMessage = "Failed to load data: \(error.localizedDescription)"
@@ -291,11 +299,17 @@ struct AssetFormView: View {
         do {
             let home = try seedService.getOrCreateHome()
 
+            guard let homeId = home.id else {
+                errorMessage = "Invalid home configuration"
+                isSaving = false
+                return
+            }
+
             let savedAsset: Asset
             switch mode {
             case .create:
                 savedAsset = try assetRepo.create(
-                    homeId: home.id!,
+                    homeId: homeId,
                     name: name,
                     categoryId: selectedCategory?.id,
                     locationId: selectedLocation?.id,
@@ -309,8 +323,13 @@ struct AssetFormView: View {
                 )
 
             case .edit(let asset):
+                guard let assetId = asset.id else {
+                    errorMessage = "Invalid asset ID"
+                    isSaving = false
+                    return
+                }
                 savedAsset = try assetRepo.update(
-                    asset.id!,
+                    assetId,
                     name: name,
                     categoryId: selectedCategory?.id,
                     locationId: selectedLocation?.id,
@@ -325,8 +344,14 @@ struct AssetFormView: View {
             }
 
             // Save captured photos
+            guard let assetId = savedAsset.id else {
+                errorMessage = "Failed to get asset ID after save"
+                isSaving = false
+                return
+            }
+
             for photo in capturedPhotos {
-                try await savePhoto(photo, for: savedAsset.id!)
+                try await savePhoto(photo, for: assetId)
             }
 
             onSave()
