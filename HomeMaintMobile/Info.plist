@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSCameraUsageDescription</key>
+	<string>HomeMaint needs access to your camera to capture photos of your home assets and maintenance work.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>HomeMaint needs access to your photo library to select and attach photos to your assets and maintenance records.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>HomeMaint needs access to save photos to your photo library.</string>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+</dict>
+</plist>
