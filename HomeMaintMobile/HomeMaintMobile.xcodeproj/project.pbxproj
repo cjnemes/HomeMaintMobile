@@ -8,11 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		0054B67F9A90E02790311038 /* MaintenanceRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0373D31887EA33EE5205BE8 /* MaintenanceRecordListViewModel.swift */; };
+		00F7ACD91854359CBE694604 /* MaintenanceTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36DFFB9AD5017CBAD52F00A /* MaintenanceTaskRepositoryTests.swift */; };
+		033CE44A670C2DF0C8E139F6 /* HomeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D73D8724073EFFC2DE85F /* HomeRepositoryTests.swift */; };
+		05A62D4476C2031B48BC4181 /* AssetListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2592009574AE9D17F89C6886 /* AssetListViewModelTests.swift */; };
 		1028539039517F48732ED5CB /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */; };
+		1327933A88D60B6E1CD949A1 /* TaskListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373499E044867B0E879A5C61 /* TaskListViewModelTests.swift */; };
+		181C163E529EDFB116CD0080 /* AssetRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C459943D1990F1942C9D09 /* AssetRepositoryTests.swift */; };
 		1BE3F73DACD2AE03FDC2DB2B /* MaintenanceRecordFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */; };
+		32F36AFB9D8E9182073D1D83 /* ServiceProviderListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1605FCD78C75DB49689315 /* ServiceProviderListViewModelTests.swift */; };
+		3B5629D0895D27891E46F92D /* ServiceProviderRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0F0DFC4863755BF0E0AAE /* ServiceProviderRepositoryTests.swift */; };
+		3C5E11B7142CFE5D657F39B4 /* CategoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FB11FD1336EC066925972 /* CategoryRepositoryTests.swift */; };
+		3F99448A608AC2B453CCC5DC /* FileStorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1DAE5B0A41AFC80F5AD99A /* FileStorageServiceTests.swift */; };
+		40A6B16202BA4655C1DCA532 /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76F5C5779B5013A47478443 /* DashboardViewModelTests.swift */; };
 		41BBF99C1E828B58974337E1 /* PhotoGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375CB011DF0EBAD27F193BE2 /* PhotoGridView.swift */; };
 		5545C7F56D1B40216FE7A68C /* CommonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BB95978145001FF2601D2D /* CommonComponents.swift */; };
 		5678AE89F5D3B439FBDFA6D4 /* MaintenanceRecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */; };
+		6B469102E0736B99F630D6B2 /* LocationRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD45113F8C908F3C8D3340D1 /* LocationRepositoryTests.swift */; };
 		6C1B3270229429B71225CD72 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D974EBBDA2A69E83E307D0C /* CameraService.swift */; };
 		82629C73636997DB701D91A3 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C88D48641902BF2C86FF5A /* TaskFormView.swift */; };
 		830184822EAEDC3700C27976 /* MaintenanceRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301846A2EAEDC3700C27976 /* MaintenanceRecordRepository.swift */; };
@@ -49,21 +60,50 @@
 		83EC99FD2EAEE78D00197A5D /* ServiceProviderDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC99F82EAEE78D00197A5D /* ServiceProviderDetailView.swift */; };
 		83EC99FE2EAEE78D00197A5D /* ServiceProviderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC99FA2EAEE78D00197A5D /* ServiceProviderListView.swift */; };
 		83EC9A002EAEE7A400197A5D /* ServiceProviderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC99FF2EAEE7A400197A5D /* ServiceProviderListViewModel.swift */; };
+		8FFB3CE68076D5C63A454160 /* AttachmentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B256414C8E6BB08831C6F100 /* AttachmentRepositoryTests.swift */; };
 		984955913EB46449487B6CE1 /* MaintenanceRecordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0A469F983544252E196CC /* MaintenanceRecordListView.swift */; };
+		991A6B95850ED9431423B3EF /* MaintenanceRecordListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E109016C47E5E8D21BA996 /* MaintenanceRecordListViewModelTests.swift */; };
 		B22FA707130AD8901FD66FA0 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C7FA001173735FB0BAB2B /* TaskListViewModel.swift */; };
+		C80EC44CB63A01B19AD47EFF /* MaintenanceRecordRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D8E2CC7E2FAEE43CF33B1B /* MaintenanceRecordRepositoryTests.swift */; };
+		C9FF3F17F2CDACF9CEF03056 /* SeedDataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E78951EA469CFB2A978FD56 /* SeedDataServiceTests.swift */; };
 		D50E570B0BD4EEC67157153E /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEB5F943AF8BB3484FB20D /* TaskDetailView.swift */; };
+		EBCAC1328C65B0E1DFCA0825 /* AssetDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D9F8CA8413C5FC1929E6FE /* AssetDetailViewModelTests.swift */; };
+		F471605991BAEB13C19E8CAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981BA268704363DE1BFB51BD /* Foundation.framework */; };
+		FD631F04F5EC3FA4E70A93B4 /* DatabaseServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E955D8B624A06B255253A83 /* DatabaseServiceTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A6CB3DDC99E2BCB1E1F70149 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 839CED272EAEDA0100C2F620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 839CED2E2EAEDA0100C2F620;
+			remoteInfo = HomeMaintMobile;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0E6FB11FD1336EC066925972 /* CategoryRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CategoryRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/CategoryRepositoryTests.swift; sourceTree = "<group>"; };
+		1164F0B74C608AC92857D389 /* HomeMaintMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeMaintMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19BB95978145001FF2601D2D /* CommonComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommonComponents.swift; sourceTree = "<group>"; };
+		1E1605FCD78C75DB49689315 /* ServiceProviderListViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServiceProviderListViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/ServiceProviderListViewModelTests.swift; sourceTree = "<group>"; };
+		20C459943D1990F1942C9D09 /* AssetRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssetRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/AssetRepositoryTests.swift; sourceTree = "<group>"; };
+		24D8E2CC7E2FAEE43CF33B1B /* MaintenanceRecordRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MaintenanceRecordRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/MaintenanceRecordRepositoryTests.swift; sourceTree = "<group>"; };
+		2592009574AE9D17F89C6886 /* AssetListViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssetListViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/AssetListViewModelTests.swift; sourceTree = "<group>"; };
+		31A0F0DFC4863755BF0E0AAE /* ServiceProviderRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServiceProviderRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/ServiceProviderRepositoryTests.swift; sourceTree = "<group>"; };
+		35D9F8CA8413C5FC1929E6FE /* AssetDetailViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssetDetailViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/AssetDetailViewModelTests.swift; sourceTree = "<group>"; };
+		373499E044867B0E879A5C61 /* TaskListViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskListViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/TaskListViewModelTests.swift; sourceTree = "<group>"; };
 		375CB011DF0EBAD27F193BE2 /* PhotoGridView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoGridView.swift; sourceTree = "<group>"; };
 		3D974EBBDA2A69E83E307D0C /* CameraService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		41E3BF0DCD86A35D1698BE7A /* TaskListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		48DC8AE11CC2670C2C13AB2A /* PhotoGridView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoGridView.swift; sourceTree = "<group>"; };
 		4CA0A469F983544252E196CC /* MaintenanceRecordListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordListView.swift; sourceTree = "<group>"; };
+		5E78951EA469CFB2A978FD56 /* SeedDataServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SeedDataServiceTests.swift; path = HomeMaintMobileTests/Services/SeedDataServiceTests.swift; sourceTree = "<group>"; };
 		6DC924CAE2DA55946CD654D3 /* MaintenanceTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceTask.swift; sourceTree = "<group>"; };
 		74BEB5F943AF8BB3484FB20D /* TaskDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		7749725C4612E082A8E193D1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78E109016C47E5E8D21BA996 /* MaintenanceRecordListViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MaintenanceRecordListViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/MaintenanceRecordListViewModelTests.swift; sourceTree = "<group>"; };
+		791D73D8724073EFFC2DE85F /* HomeRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/HomeRepositoryTests.swift; sourceTree = "<group>"; };
 		8301845B2EAEDC3700C27976 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		8301845C2EAEDC3700C27976 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		8301845D2EAEDC3700C27976 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -98,15 +138,30 @@
 		83EC99F92EAEE78D00197A5D /* ServiceProviderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderFormView.swift; sourceTree = "<group>"; };
 		83EC99FA2EAEE78D00197A5D /* ServiceProviderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderListView.swift; sourceTree = "<group>"; };
 		83EC99FF2EAEE7A400197A5D /* ServiceProviderListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderListViewModel.swift; sourceTree = "<group>"; };
+		8E955D8B624A06B255253A83 /* DatabaseServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DatabaseServiceTests.swift; path = HomeMaintMobileTests/Services/DatabaseServiceTests.swift; sourceTree = "<group>"; };
+		981BA268704363DE1BFB51BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A3C57EF06AABDF68781A24C9 /* MaintenanceTaskRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceTaskRepository.swift; sourceTree = "<group>"; };
 		A4C88D48641902BF2C86FF5A /* TaskFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
+		AB1DAE5B0A41AFC80F5AD99A /* FileStorageServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileStorageServiceTests.swift; path = HomeMaintMobileTests/Services/FileStorageServiceTests.swift; sourceTree = "<group>"; };
 		B0373D31887EA33EE5205BE8 /* MaintenanceRecordListViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordListViewModel.swift; sourceTree = "<group>"; };
+		B256414C8E6BB08831C6F100 /* AttachmentRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AttachmentRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/AttachmentRepositoryTests.swift; sourceTree = "<group>"; };
 		C4426598E93BEDBEF3BDA3D5 /* MaintenanceRecordDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordDetailView.swift; sourceTree = "<group>"; };
+		CD45113F8C908F3C8D3340D1 /* LocationRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocationRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/LocationRepositoryTests.swift; sourceTree = "<group>"; };
 		E444F43A5DBB96D9BB62BEFE /* MaintenanceRecordFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MaintenanceRecordFormView.swift; sourceTree = "<group>"; };
 		F04C7FA001173735FB0BAB2B /* TaskListViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		F36DFFB9AD5017CBAD52F00A /* MaintenanceTaskRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MaintenanceTaskRepositoryTests.swift; path = HomeMaintMobileTests/Repositories/MaintenanceTaskRepositoryTests.swift; sourceTree = "<group>"; };
+		F76F5C5779B5013A47478443 /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DashboardViewModelTests.swift; path = HomeMaintMobileTests/ViewModels/DashboardViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		656F89A9189D53FD51670C77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F471605991BAEB13C19E8CAC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		839CED2C2EAEDA0100C2F620 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +190,14 @@
 			path = Views/Shared;
 			sourceTree = "<group>";
 		};
+		4BF9F12F6243FE3186411FC0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				981BA268704363DE1BFB51BD /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		544AF31FB25B507C7A877BFE /* HomeMaintMobile */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +205,21 @@
 				E0B452986721C0449130C9C4 /* Repositories */,
 			);
 			name = HomeMaintMobile;
+			sourceTree = "<group>";
+		};
+		58D0630F369AB77DF07BF4FB /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				20C459943D1990F1942C9D09 /* AssetRepositoryTests.swift */,
+				B256414C8E6BB08831C6F100 /* AttachmentRepositoryTests.swift */,
+				0E6FB11FD1336EC066925972 /* CategoryRepositoryTests.swift */,
+				791D73D8724073EFFC2DE85F /* HomeRepositoryTests.swift */,
+				CD45113F8C908F3C8D3340D1 /* LocationRepositoryTests.swift */,
+				24D8E2CC7E2FAEE43CF33B1B /* MaintenanceRecordRepositoryTests.swift */,
+				F36DFFB9AD5017CBAD52F00A /* MaintenanceTaskRepositoryTests.swift */,
+				31A0F0DFC4863755BF0E0AAE /* ServiceProviderRepositoryTests.swift */,
+			);
+			name = Repositories;
 			sourceTree = "<group>";
 		};
 		5BAC7F29C9743BCC2A208969 /* Shared */ = {
@@ -285,6 +363,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		832F5931DFA323A917FDE2B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BF9F12F6243FE3186411FC0 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		839CED262EAEDA0100C2F620 = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +384,8 @@
 				839CED302EAEDA0100C2F620 /* Products */,
 				544AF31FB25B507C7A877BFE /* HomeMaintMobile */,
 				7749725C4612E082A8E193D1 /* Info.plist */,
+				832F5931DFA323A917FDE2B9 /* Frameworks */,
+				F97E599F0543C966875E8107 /* HomeMaintMobileTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -305,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				839CED2F2EAEDA0100C2F620 /* HomeMaintMobile.app */,
+				1164F0B74C608AC92857D389 /* HomeMaintMobileTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -319,6 +408,29 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		AD1662919A6D4EC188A4B8B0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				35D9F8CA8413C5FC1929E6FE /* AssetDetailViewModelTests.swift */,
+				2592009574AE9D17F89C6886 /* AssetListViewModelTests.swift */,
+				F76F5C5779B5013A47478443 /* DashboardViewModelTests.swift */,
+				78E109016C47E5E8D21BA996 /* MaintenanceRecordListViewModelTests.swift */,
+				1E1605FCD78C75DB49689315 /* ServiceProviderListViewModelTests.swift */,
+				373499E044867B0E879A5C61 /* TaskListViewModelTests.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		B0C049B260A9BE50D8B445D5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8E955D8B624A06B255253A83 /* DatabaseServiceTests.swift */,
+				AB1DAE5B0A41AFC80F5AD99A /* FileStorageServiceTests.swift */,
+				5E78951EA469CFB2A978FD56 /* SeedDataServiceTests.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		E0B452986721C0449130C9C4 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,9 +439,38 @@
 			name = Repositories;
 			sourceTree = "<group>";
 		};
+		F97E599F0543C966875E8107 /* HomeMaintMobileTests */ = {
+			isa = PBXGroup;
+			children = (
+				58D0630F369AB77DF07BF4FB /* Repositories */,
+				B0C049B260A9BE50D8B445D5 /* Services */,
+				AD1662919A6D4EC188A4B8B0 /* ViewModels */,
+			);
+			name = HomeMaintMobileTests;
+			path = HomeMaintMobileTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0F98B4B75FD64590F24573A8 /* HomeMaintMobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92160073DCFEB035874C21EE /* Build configuration list for PBXNativeTarget "HomeMaintMobileTests" */;
+			buildPhases = (
+				D47430030B8623FF87203940 /* Sources */,
+				656F89A9189D53FD51670C77 /* Frameworks */,
+				B24E65312F666D7105B1F7A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4533692F3863A198D5DA26A /* PBXTargetDependency */,
+			);
+			name = HomeMaintMobileTests;
+			productName = HomeMaintMobileTests;
+			productReference = 1164F0B74C608AC92857D389 /* HomeMaintMobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		839CED2E2EAEDA0100C2F620 /* HomeMaintMobile */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 839CED3C2EAEDA0200C2F620 /* Build configuration list for PBXNativeTarget "HomeMaintMobile" */;
@@ -383,12 +524,20 @@
 			projectRoot = "";
 			targets = (
 				839CED2E2EAEDA0100C2F620 /* HomeMaintMobile */,
+				0F98B4B75FD64590F24573A8 /* HomeMaintMobileTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		839CED2D2EAEDA0100C2F620 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B24E65312F666D7105B1F7A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -449,9 +598,71 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D47430030B8623FF87203940 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181C163E529EDFB116CD0080 /* AssetRepositoryTests.swift in Sources */,
+				8FFB3CE68076D5C63A454160 /* AttachmentRepositoryTests.swift in Sources */,
+				3C5E11B7142CFE5D657F39B4 /* CategoryRepositoryTests.swift in Sources */,
+				033CE44A670C2DF0C8E139F6 /* HomeRepositoryTests.swift in Sources */,
+				6B469102E0736B99F630D6B2 /* LocationRepositoryTests.swift in Sources */,
+				C80EC44CB63A01B19AD47EFF /* MaintenanceRecordRepositoryTests.swift in Sources */,
+				00F7ACD91854359CBE694604 /* MaintenanceTaskRepositoryTests.swift in Sources */,
+				3B5629D0895D27891E46F92D /* ServiceProviderRepositoryTests.swift in Sources */,
+				FD631F04F5EC3FA4E70A93B4 /* DatabaseServiceTests.swift in Sources */,
+				3F99448A608AC2B453CCC5DC /* FileStorageServiceTests.swift in Sources */,
+				C9FF3F17F2CDACF9CEF03056 /* SeedDataServiceTests.swift in Sources */,
+				EBCAC1328C65B0E1DFCA0825 /* AssetDetailViewModelTests.swift in Sources */,
+				05A62D4476C2031B48BC4181 /* AssetListViewModelTests.swift in Sources */,
+				40A6B16202BA4655C1DCA532 /* DashboardViewModelTests.swift in Sources */,
+				991A6B95850ED9431423B3EF /* MaintenanceRecordListViewModelTests.swift in Sources */,
+				32F36AFB9D8E9182073D1D83 /* ServiceProviderListViewModelTests.swift in Sources */,
+				1327933A88D60B6E1CD949A1 /* TaskListViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E4533692F3863A198D5DA26A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HomeMaintMobile;
+			target = 839CED2E2EAEDA0100C2F620 /* HomeMaintMobile */;
+			targetProxy = A6CB3DDC99E2BCB1E1F70149 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		3786257C7F7F238625C2F36B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homemaint.HomeMaintMobileTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		50D470D5DBE195B3B19A5878 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homemaint.HomeMaintMobileTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		839CED3A2EAEDA0200C2F620 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -654,6 +865,15 @@
 			buildConfigurations = (
 				839CED3D2EAEDA0200C2F620 /* Debug */,
 				839CED3E2EAEDA0200C2F620 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92160073DCFEB035874C21EE /* Build configuration list for PBXNativeTarget "HomeMaintMobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50D470D5DBE195B3B19A5878 /* Release */,
+				3786257C7F7F238625C2F36B /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
