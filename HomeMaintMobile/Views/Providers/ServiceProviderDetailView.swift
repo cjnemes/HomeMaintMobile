@@ -27,7 +27,7 @@ struct ServiceProviderDetailView: View {
                         }
 
                         if let specialty = provider.specialty {
-                            if provider.name != nil && !provider.name!.isEmpty {
+                            if let name = provider.name, !name.isEmpty {
                                 Text("•")
                                     .foregroundColor(.secondary)
                             }
@@ -118,11 +118,33 @@ struct ServiceProviderDetailView: View {
         provider.phone != nil || provider.email != nil
     }
 
+    @ViewBuilder
     private func contactRow(icon: String, label: String, value: String, link: String) -> some View {
-        Link(destination: URL(string: link)!) {
+        if let url = URL(string: link) {
+            Link(destination: url) {
+                HStack {
+                    Image(systemName: icon)
+                        .foregroundColor(.blue)
+                        .frame(width: 24)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(label)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                        Text(value)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            }
+        } else {
+            // Fallback if URL is invalid - show as plain text
             HStack {
                 Image(systemName: icon)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.gray)
                     .frame(width: 24)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(label)
@@ -133,9 +155,6 @@ struct ServiceProviderDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundColor(.gray)
             }
         }
     }

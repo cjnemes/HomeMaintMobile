@@ -98,10 +98,16 @@ struct ServiceProviderFormView: View {
         do {
             let home = try seedService.getOrCreateHome()
 
+            guard let homeId = home.id else {
+                errorMessage = "Home does not have a valid ID"
+                isSaving = false
+                return
+            }
+
             switch mode {
             case .create:
                 _ = try providerRepo.create(
-                    homeId: home.id!,
+                    homeId: homeId,
                     company: company,
                     name: name.isEmpty ? nil : name,
                     phone: phone.isEmpty ? nil : phone,
@@ -111,8 +117,14 @@ struct ServiceProviderFormView: View {
                 )
 
             case .edit(let provider):
+                guard let providerId = provider.id else {
+                    errorMessage = "Provider does not have a valid ID"
+                    isSaving = false
+                    return
+                }
+
                 _ = try providerRepo.update(
-                    provider.id!,
+                    providerId,
                     company: company,
                     name: name.isEmpty ? nil : name,
                     phone: phone.isEmpty ? nil : phone,

@@ -28,20 +28,25 @@ class SeedDataService {
             home = try createDefaultHome()
         }
 
+        // Ensure home has an ID
+        guard let homeId = home.id else {
+            throw SeedDataError.missingHomeId
+        }
+
         // Check and create categories if needed
-        let existingCategories = try categoryRepo.findByHomeId(home.id!)
+        let existingCategories = try categoryRepo.findByHomeId(homeId)
         if existingCategories.isEmpty {
             print("🌱 Seeding categories...")
-            try createDefaultCategories(homeId: home.id!)
+            try createDefaultCategories(homeId: homeId)
         } else {
             print("✅ Found \(existingCategories.count) existing categories")
         }
 
         // Check and create locations if needed
-        let existingLocations = try locationRepo.findByHomeId(home.id!)
+        let existingLocations = try locationRepo.findByHomeId(homeId)
         if existingLocations.isEmpty {
             print("🌱 Seeding locations...")
-            try createDefaultLocations(homeId: home.id!)
+            try createDefaultLocations(homeId: homeId)
         } else {
             print("✅ Found \(existingLocations.count) existing locations")
         }
@@ -112,5 +117,18 @@ class SeedDataService {
             return home
         }
         return try seedIfNeeded()
+    }
+}
+
+// MARK: - Error Types
+
+enum SeedDataError: Error {
+    case missingHomeId
+
+    var localizedDescription: String {
+        switch self {
+        case .missingHomeId:
+            return "Home does not have a valid ID"
+        }
     }
 }

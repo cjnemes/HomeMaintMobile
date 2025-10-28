@@ -164,7 +164,14 @@ struct TaskFormView: View {
     private func loadData() async {
         do {
             let home = try seedService.getOrCreateHome()
-            assets = try assetRepo.findByHomeId(home.id!)
+
+            guard let homeId = home.id else {
+                errorMessage = "Home does not have a valid ID"
+                print("❌ Error: Home missing ID")
+                return
+            }
+
+            assets = try assetRepo.findByHomeId(homeId)
             print("📍 Loaded \(assets.count) assets for task form")
 
             // Preselect asset if provided
@@ -203,8 +210,14 @@ struct TaskFormView: View {
                 )
 
             case .edit(let task):
+                guard let taskId = task.id else {
+                    errorMessage = "Task does not have a valid ID"
+                    isSaving = false
+                    return
+                }
+
                 _ = try taskRepo.update(
-                    task.id!,
+                    taskId,
                     title: title,
                     assetId: selectedAsset?.id,
                     description: description.isEmpty ? nil : description,

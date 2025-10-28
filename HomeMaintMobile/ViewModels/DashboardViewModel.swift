@@ -34,8 +34,16 @@ class DashboardViewModel: ObservableObject {
         do {
             let home = try seedService.getOrCreateHome()
 
+            // Ensure home has an ID
+            guard let homeId = home.id else {
+                errorMessage = "Home does not have a valid ID"
+                print("❌ Error: Home missing ID")
+                isLoading = false
+                return
+            }
+
             // Load stats
-            let assets = try assetRepo.findByHomeId(home.id!)
+            let assets = try assetRepo.findByHomeId(homeId)
             totalAssets = assets.count
 
             // Load recent maintenance (last 5)
@@ -48,7 +56,7 @@ class DashboardViewModel: ObservableObject {
             overdueTasks = try taskRepo.findOverdue()
 
             // Load expiring warranties (next 30 days)
-            expiringWarranties = try assetRepo.findExpiringWarranties(homeId: home.id!, withinDays: 30)
+            expiringWarranties = try assetRepo.findExpiringWarranties(homeId: homeId, withinDays: 30)
 
             print("✅ Dashboard data loaded")
         } catch {
